@@ -8,17 +8,13 @@ function saveOptions(e) {
   liveChange(e);
 }
 
-const liveChange = (e) => {
+const liveChange = async (e) => {
+  const tab = await browser.tabs.query({active: true, currentWindow: true});
+  browser.tabs.sendMessage(tab[0].id,{fontSize: e.target.value});
   document.getElementById("popup__range--value").innerHTML = `${e.target.value}px`;
-  const resetStyle = `#str_in, #str_out,.fCursor{font-size : ${currentSize}px}`
-  browser.tabs.removeCSS({code: resetStyle});
-  const style = `#str_in, #str_out,.fCursor{font-size : ${e.target.value}px}`
-  browser.tabs.insertCSS({code: style});
-  currentSize = e.target.value;
 }
 
 function restoreOptions() {
-
   function setCurrentChoice(result) {
     console.log(result.fontSize);
     document.getElementById("popup__range--value").innerHTML =  `${result.fontSize}px`;
@@ -37,6 +33,5 @@ function restoreOptions() {
 }
 
 document.addEventListener("DOMContentLoaded", restoreOptions);
-
 document.getElementById("popup__range").addEventListener("input",liveChange);
 document.getElementById("popup__range").addEventListener("change",saveOptions);
