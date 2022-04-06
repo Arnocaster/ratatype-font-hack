@@ -1,0 +1,33 @@
+{
+
+  "manifest_version": 2,
+  "name": "Ratatype - font size modifier",
+  "version": "1.0",
+
+  "description": "Change dynamic input text field for accessibility",
+
+  "icons": {
+    "48": "icons/icon48.png"
+  },
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "browser_action": {
+    "default_icon": "icons/icon32.png",
+    "default_title": "Ratatype Font Size Modifier",
+    "default_popup": "popup/settings.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.ratatype.fr/*"],
+      "js": ["script.js"]
+    }
+  ],
+  "applications": {
+    "gecko": {
+      "id": "addon@example.com"
+    }
+  }
+
+}
